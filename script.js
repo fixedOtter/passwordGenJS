@@ -52,6 +52,16 @@ function getCheckInput() {
     let criteriaNums = false;
     let criteriaSpecs = false;
     
+
+    /* FIXME
+    *
+    * The length criteria can be blank
+    * 
+    * Also the length isn't bound to 8 - 128
+    * 
+    * Good start so far though! :)
+    */
+    
     /* while loop for length */
     while (!criteriaLength) {
       
@@ -72,14 +82,112 @@ function getCheckInput() {
         console.log('password length grab failure');
       }
     }
+
+    while (!criteriaCaps) {
+      
+      /* gets user input so it can be tested for */
+      let userInput = prompt('Do you want to include capital characters?');
+
+      /* tests userInput */
+      if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
+        /* sets include to true */
+        includeCaps = true;
+        console.log('caps criteria grab success - true');
+
+        /* sets criteria to end loop */
+        criteriaCaps = true;
+      } else if (userInput == 'no' || userInput == 'n' || userInput == 'false' || userInput == 'f') {
+        /* logs that user said no */
+        console.log('caps criteria grab success - false')
+
+        /* sets criteria to end loop */
+        criteriaCaps = true;
+      } else {
+        /* lets the user know that their input sucked and resets loop :)*/
+        alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
+        console.log('caps criteria grab failure');
+      }
+    }
+
+    while (!criteriaLows) {
+      
+      /* gets user input so it can be tested for */
+      let userInput = prompt('Do you want to include lowerchase characters?');
+
+      /* tests userInput */
+      if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
+        /* sets include to true */
+        includeLows = true;
+        console.log('lows criteria grab success - true');
+
+        /* sets criteria to end loop */
+        criteriaLows = true;
+      } else if (userInput == 'no' || userInput == 'n' || userInput == 'false' || userInput == 'f') {
+        /* logs that user said no */
+        console.log('lows criteria grab success - false')
+
+        /* sets criteria to end loop */
+        criteriaLows = true;
+      } else {
+        /* lets the user know that their input sucked and resets loop :)*/
+        alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
+        console.log('lows criteria grab failure');
+      }
+    }
+
+    while (!criteriaNums) {
+      
+      /* gets user input so it can be tested for */
+      let userInput = prompt('Do you want to include integers?');
+
+      /* tests userInput */
+      if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
+        /* sets include to true */
+        includeNums = true;
+        console.log('nums criteria grab success - true');
+
+        /* sets criteria to end loop */
+        criteriaNums = true;
+      } else if (userInput == 'no' || userInput == 'n' || userInput == 'false' || userInput == 'f') {
+        /* logs that user said no */
+        console.log('nums criteria grab success - false')
+
+        /* sets criteria to end loop */
+        criteriaNums = true;
+      } else {
+        /* lets the user know that their input sucked and resets loop :)*/
+        alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
+        console.log('nums criteria grab failure');
+      }
+    }
+
+    while (!criteriaSpecs) {
+      
+      /* gets user input so it can be tested for */
+      let userInput = prompt('Do you want to include special characters?');
+
+      /* tests userInput */
+      if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
+        /* sets include to true */
+        includeSpecs = true;
+        console.log('specs criteria grab success - true');
+
+        /* sets criteria to end loop */
+        criteriaSpecs = true;
+      } else if (userInput == 'no' || userInput == 'n' || userInput == 'false' || userInput == 'f') {
+        /* logs that user said no */
+        console.log('specs criteria grab success - false')
+
+        /* sets criteria to end loop */
+        criteriaSpecs = true;
+      } else {
+        /* lets the user know that their input sucked and resets loop :)*/
+        alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
+        console.log('specs criteria grab failure');
+      }
+    }
     
     criteriaMet = true;
-
-    /* FIXME
-    *
-    * I need to add the while comparison blocks for the other little variables
-    * 
-    * */
   
   }
 
@@ -114,7 +222,7 @@ function generatePassword() {
   console.log(validUserInput.passLength);
   console.log(validUserInput.includeCaps);
   console.log(validUserInput.includeLows);
-  console.log(validUserInput.includeLows);
+  console.log(validUserInput.includeNums);
   console.log(validUserInput.includeSpecs);
 
   
@@ -125,7 +233,7 @@ function generatePassword() {
 
 
 
-  return specialChars;
+  return 1;
 }
 
 
