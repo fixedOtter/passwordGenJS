@@ -15,7 +15,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  const password = generatePassword();
+  const password = compilePassword();
   let passwordText = document.querySelector("#password");
   
   passwordText.value = password;
@@ -52,16 +52,6 @@ function getCheckInput() {
     let criteriaNums = false;
     let criteriaSpecs = false;
     
-
-    /* FIXME
-    *
-    * The length criteria can be blank
-    * 
-    * Also the length isn't bound to 8 - 128
-    * 
-    * Good start so far though! :)
-    */
-    
     /* while loop for length */
     while (!criteriaLength) {
       
@@ -69,7 +59,7 @@ function getCheckInput() {
       let userInput = prompt('How long should the password be?');
 
       /* tests userInput */
-      if (userInput == round(userInput)) {
+      if ((userInput == round(userInput)) && (round(userInput) <= 128) && (round(userInput) >= 8) ) {
         /* sets passLength to userInput if it's an integer */
         passLength = round(userInput);
         console.log('password length grab success');
@@ -77,8 +67,8 @@ function getCheckInput() {
         /* sets criteriaLength to end loop */
         criteriaLength = true;
       } else {
-        /* lets the user know that their input sucked and resets loop :)*/
-        alert('Invalid input! Please input an integer!');
+        /* lets the user know that their input sucked and resets loop :) */
+        alert('Invalid input! Please input an integer 8 <=  x <=128!');
         console.log('password length grab failure');
       }
     }
@@ -103,7 +93,7 @@ function getCheckInput() {
         /* sets criteria to end loop */
         criteriaCaps = true;
       } else {
-        /* lets the user know that their input sucked and resets loop :)*/
+        /* lets the user know that their input sucked and resets loop :) */
         alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
         console.log('caps criteria grab failure');
       }
@@ -129,7 +119,7 @@ function getCheckInput() {
         /* sets criteria to end loop */
         criteriaLows = true;
       } else {
-        /* lets the user know that their input sucked and resets loop :)*/
+        /* lets the user know that their input sucked and resets loop :) */
         alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
         console.log('lows criteria grab failure');
       }
@@ -155,7 +145,7 @@ function getCheckInput() {
         /* sets criteria to end loop */
         criteriaNums = true;
       } else {
-        /* lets the user know that their input sucked and resets loop :)*/
+        /* lets the user know that their input sucked and resets loop :) */
         alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
         console.log('nums criteria grab failure');
       }
@@ -181,7 +171,7 @@ function getCheckInput() {
         /* sets criteria to end loop */
         criteriaSpecs = true;
       } else {
-        /* lets the user know that their input sucked and resets loop :)*/
+        /* lets the user know that their input sucked and resets loop :) */
         alert('Invalid input! Please input yes or no, y or n, true or false, t or f.');
         console.log('specs criteria grab failure');
       }
@@ -191,49 +181,92 @@ function getCheckInput() {
   
   }
 
-  return {passLength, includeCaps, includeLows, includeNums, includeSpecs}
+  return {passLength, includeCaps, includeLows, includeNums, includeSpecs};
 }
 
 
 
-
-
-
-
-/* this is a chunky passGen function lol */
-function generatePassword() {
-  /* ******************* */
-  /* declaring variables */
-  /* ******************* */
-
-
-  /* this will be my character pool to pull from */
-  let numberChars = '0123456789';
+/* ******************************************************* */
+/* this is taking the user criteria and makes one charPool */
+/* ******************************************************* */
+function generateCharPool(includeCaps, includeLows, includeNums, includeSpecs) {
+  /* declaring my character pool to pull from */
   let capitalChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+  let numberChars = '0123456789';
   let specialChars = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
-  let charCombo = '';
+  let charPool = '';
 
-  /* the holy final password once generated */
-  let password = '';
 
-  /* calling the func to get all the user input and the like */
+  /* will check each bool and add the charPool for each criteria var */
+  if (includeCaps) {
+    charPool += capitalChars;
+  }
+  if (includeLows) {
+    charPool += lowerChars;
+  }
+  if (includeNums) {
+    charPool += numberChars;
+  }
+  if (includeSpecs) {
+    charPool += specialChars;
+  }
+
+  return charPool;
+}
+
+
+
+/* ******************************************************************************************************** */
+/* this is taking the charPool and passLength to generate the password we're going to fill into the textbox */
+/* ******************************************************************************************************** */
+function generatePassword(charPool, passLength) {
+  /* declaring variable pass which will hold the generated password */
+  let pass = '';
+    
+  /* ************************************** */
+  /* this is the actual password generator! */
+  /* ************************************** */
+
+  /* basically you have this for loop that will iterate through the length of the password */
+  /* as it iterates through, it will define a random character from the charPool to pass */
+  for (let i = 0; i < passLength; i++) {
+
+      /* this is adding that random character to pass by generating a random number <= the length of charPool */
+      /* by doing it this way, i can vary what the charPool is and it's length without having to change what  */
+      /* the password generation is setup to do. */
+      pass += charPool.charAt(Math.floor(Math.random() * charPool.length));
+  }
+
+  return pass;
+}
+
+/* ********************************************************** */
+/* this is the lightweight "main" function to call the others */
+/* ********************************************************** */
+function compilePassword() {
+  /* declaring variables */
+
+  /* calling the functions */
   let validUserInput = getCheckInput();
-  console.log(validUserInput.passLength);
-  console.log(validUserInput.includeCaps);
-  console.log(validUserInput.includeLows);
-  console.log(validUserInput.includeNums);
-  console.log(validUserInput.includeSpecs);
+
+  /* pull variables from the validUserInput */
+  let passLength = validUserInput.passLength,
+      includeCaps = validUserInput.includeCaps, 
+      includeLows = validUserInput.includeLows, 
+      includeNums = validUserInput.includeNums, 
+      includeSpecs = validUserInput.includeSpecs;
+
+  /* calls and creates the charPool */
+  let validCharPool = generateCharPool(includeCaps, includeLows, includeNums, includeSpecs);
+
+  /* FINALLLY generates the password lol */
+  let password = generatePassword(validCharPool, passLength);
 
   
 
-  /* *********** */
-  /* calculating */
-  /* *********** */
 
-
-
-  return 1;
+  return password;
 }
 
 
