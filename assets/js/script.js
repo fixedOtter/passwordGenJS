@@ -58,6 +58,9 @@ function getCheckInput() {
       /* gets user input so it can be tested for */
       let userInput = prompt('How long should the password be?');
 
+      /* removes all characters except for ints */
+      userInput = userInput.replace(/[^0-9 ]/g, '');
+
       /* tests userInput */
       if ((userInput == round(userInput)) && (round(userInput) <= 128) && (round(userInput) >= 8) ) {
         /* sets passLength to userInput if it's an integer */
@@ -77,6 +80,10 @@ function getCheckInput() {
       
       /* gets user input so it can be tested for */
       let userInput = prompt('Do you want to include capital characters?');
+
+      /* removes special characters from userInput and makes it all lowercase */
+      userInput = userInput.replace(/[^a-zA-Z ]/g, '');
+      userInput = userInput.toLowerCase();
 
       /* tests userInput */
       if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
@@ -104,6 +111,10 @@ function getCheckInput() {
       /* gets user input so it can be tested for */
       let userInput = prompt('Do you want to include lowerchase characters?');
 
+      /* removes special characters from userInput and makes it all lowercase */
+      userInput = userInput.replace(/[^a-zA-Z ]/g, '');
+      userInput = userInput.toLowerCase();
+
       /* tests userInput */
       if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
         /* sets include to true */
@@ -129,6 +140,10 @@ function getCheckInput() {
       
       /* gets user input so it can be tested for */
       let userInput = prompt('Do you want to include integers?');
+
+      /* removes special characters from userInput and makes it all lowercase */
+      userInput = userInput.replace(/[^a-zA-Z ]/g, '');
+      userInput = userInput.toLowerCase();
 
       /* tests userInput */
       if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
@@ -156,6 +171,10 @@ function getCheckInput() {
       /* gets user input so it can be tested for */
       let userInput = prompt('Do you want to include special characters?');
 
+      /* removes special characters from userInput and makes it all lowercase */
+      userInput = userInput.replace(/[^a-zA-Z ]/g, '');
+      userInput = userInput.toLowerCase();
+
       /* tests userInput */
       if (userInput == 'yes' || userInput == 'y' || userInput == 'true' || userInput == 't') {
         /* sets include to true */
@@ -176,8 +195,13 @@ function getCheckInput() {
         console.log('specs criteria grab failure');
       }
     }
+
+    if (!includeCaps && !includeLows && !includeNums && !includeSpecs) {
+      alert('Invalid input! Please choose at least one character type to include! You will now have the opportunity to remedy this mistake. Please don\'t make such a foolish mistake again.');
+    } else {
+      criteriaMet = true;
+    }
     
-    criteriaMet = true;
   
   }
 
