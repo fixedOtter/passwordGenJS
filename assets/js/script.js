@@ -5,13 +5,12 @@
 /* used for rounding floats and making strings become integers */
 const round = Math.round;
 
-
-
-
-
-
+/* supplied code for grabbing the button and calling the initial function */
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
 // Write password to the #password input
 function writePassword() {
@@ -41,7 +40,7 @@ function getCheckInput() {
   let includeSpecs = false;
   let criteriaMet = false;
 
-  /* getting initial user input */
+  /* getting user input */
   
   /* outer while loop for getting user input && checking that all criteria is met */
   while (!criteriaMet) {
@@ -51,7 +50,7 @@ function getCheckInput() {
     let criteriaLows = false;
     let criteriaNums = false;
     let criteriaSpecs = false;
-    
+
     /* while loop for length */
     while (!criteriaLength) {
       
@@ -202,7 +201,6 @@ function getCheckInput() {
       criteriaMet = true;
     }
     
-  
   }
 
   return {passLength, includeCaps, includeLows, includeNums, includeSpecs};
@@ -265,12 +263,12 @@ function generatePassword(charPool, passLength) {
   return pass;
 }
 
+
+
 /* ********************************************************** */
 /* this is the lightweight "main" function to call the others */
 /* ********************************************************** */
 function compilePassword() {
-  /* declaring variables */
-
   /* calling the functions */
   let validUserInput = getCheckInput();
 
@@ -287,16 +285,5 @@ function compilePassword() {
   /* FINALLLY generates the password lol */
   let password = generatePassword(validCharPool, passLength);
 
-  
-
-
   return password;
 }
-
-
-
-
-
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
