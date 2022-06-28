@@ -1,8 +1,11 @@
+/* RESETS */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
+/* global */
 
 html,
 body,
@@ -12,15 +15,10 @@ body,
   padding: 0;
 }
 
+
 body {
   font-family: sans-serif;
   background-color: #f9fbfd;
-}
-
-.wrapper {
-  padding-top: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 header {
@@ -29,6 +27,15 @@ header {
   padding-top: 0px;
   color: hsl(206, 17%, 28%);
 }
+
+/* custom styling */
+
+.wrapper {
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 
 .card {
   background-color: hsl(0, 0%, 100%);
