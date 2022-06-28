@@ -16,4 +16,9 @@ This project was put together as an assignment for my University of Minnesota we
 ## Deployment of project
 You can access this password generator at the GitHub Pages live site [here!](https://fixedotter.github.io/passwordGenJS/)
 
+## Screenshot!
+This is what the finished project looks like:
+
+![Project screenshot](assets/screenshot.png)
+
 [^1]: I would not actually recommend using this for generating passwords. A better way to generate passwords is the dice-generated passphrases. You can learn more about them [here.](https://www.eff.org/dice)
